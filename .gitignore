@@ -1,0 +1,5 @@
+node_modules
+thread.sqlite
+build
+public/js/bundle.js
+public/css/style.css
