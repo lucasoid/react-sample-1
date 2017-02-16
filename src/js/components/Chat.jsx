@@ -67,7 +67,7 @@ export default class Chat extends React.Component {
                 <NewMessage user={this.state.user} msg="" onSubmit={(input) => this.submitMessage(input) } />
                 <div className="thread">
                     {this.state.history.map(function(msg, index) {
-                        return <Message msg={msg.msg} user={msg.user} key={msg.id} me={msg.user == _self.state.user ? 'me' :'not-me'} timestamp={msg.timestamp} />
+                        return <Message msg={msg.msg} user={msg.user} key={msg.id} me={msg.user == _self.state.user ? true : false} timestamp={msg.timestamp} />
                     })}
                     {error}
                 </div>

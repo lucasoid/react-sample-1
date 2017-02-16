@@ -9,3 +9,8 @@ npm install && gulp build && node server.js
 
 ## Play with it:
 Open http://localhost:3000 on two browser instances
+
+## Test it:
+```
+npm test
+```

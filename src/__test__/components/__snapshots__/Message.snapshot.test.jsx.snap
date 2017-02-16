@@ -1,0 +1,20 @@
+exports[`test Message is populated with user, msg, and date values 1`] = `
+<div
+  className="message not-me">
+  <div
+    className="user">
+    Boots
+    :
+  </div>
+  <div
+    className="msg">
+    <span>
+      Meow
+    </span>
+  </div>
+  <div
+    className="date">
+    2/16/2017, 3:51:41 PM
+  </div>
+</div>
+`;
