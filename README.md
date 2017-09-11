@@ -4,7 +4,7 @@ An exploration of react.
 
 ## Fire it up:
 ```
-npm install && gulp build && node server.js
+npm install && npm run postinstall && npm start
 ```
 
 ## Play with it:
