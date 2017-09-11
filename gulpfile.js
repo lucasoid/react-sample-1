@@ -4,7 +4,9 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var babel = require('gulp-babel');
-var webpack = require('gulp-webpack');
+var webpack = require('webpack');
+var webpackConfig = require('./webpack.config.js');
+var webpackStream = require('gulp-webpack');
 
 gulp.task('sass', function () {
     return gulp.src('./src/sass/**/*.scss')
@@ -12,18 +14,10 @@ gulp.task('sass', function () {
         .pipe(gulp.dest('./public/css'));
 });
 
-gulp.task('js:transpile', function () {
-    return gulp.src('./src/js/**/*.jsx')
-        .pipe(babel({
-            presets: ['react']
-        }))
-        .pipe(gulp.dest('./build/js'));
-});
-
-gulp.task('js:build', ['js:transpile'], function () {
-    return gulp.src('./build/js/index.js')
-        .pipe(webpack({output: {filename: 'bundle.js'}}))
+gulp.task('js', function () {
+    return gulp.src('./src/js/index.jsx')
+        .pipe(webpackStream(webpackConfig, webpack))
         .pipe(gulp.dest('./public/js'));
 });
 
-gulp.task('build', ['sass', 'js:build']);
+gulp.task('build', ['sass', 'js']);

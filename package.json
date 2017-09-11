@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "An exploration of react",
   "main": "index.js",
-  "repository" : {
-  "type" : "git",
-  "url" : "https://github.com/lucasoid/react-sample-1"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lucasoid/react-sample-1"
   },
   "scripts": {
     "test": "jest"
@@ -22,9 +22,10 @@
   },
   "devDependencies": {
     "babel-jest": "^18.0.0",
+    "babel-loader": "^7.1.2",
     "babel-polyfill": "^6.23.0",
     "babel-preset-es2015": "^6.22.0",
-    "babel-preset-react": "^6.23.0",
+    "babel-preset-react": "^6.24.1",
     "enzyme": "^2.7.1",
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
@@ -32,6 +33,7 @@
     "gulp-webpack": "^1.5.0",
     "jest": "^18.1.0",
     "react-addons-test-utils": "^15.4.2",
-    "react-test-renderer": "^15.4.2"
+    "react-test-renderer": "^15.4.2",
+    "webpack": "^3.5.6"
   }
 }
