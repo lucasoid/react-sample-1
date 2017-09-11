@@ -9,7 +9,9 @@ export default class Logout extends React.Component {
     
     handleClick(event) {
         event.preventDefault();
-        this.props.onLogout();
+        if(typeof this.props.onLogout === 'function') {
+            this.props.onLogout();
+        }
     }
     
     render() {

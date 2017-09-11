@@ -4,20 +4,24 @@ export default class Login extends React.Component {
     
     constructor(props) {
         super(props);
-        this.state = {user: ''};
+        this.state = {
+            user: ''
+        };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     
     handleChange(event) {
-        var state = this.state;
-        state.user = event.target.value;
-        this.setState(state);
+        if(event && event.target && typeof event.target.value !== 'undefined') {
+            this.setState({user: event.target.value});    
+        }
     }
     
     handleSubmit(event) {
         event.preventDefault();
-        this.props.onLogin(this.state.user);
+        if(typeof this.props.onLogin === 'function') {
+            this.props.onLogin(this.state.user);    
+        }
     }
     
     render() {

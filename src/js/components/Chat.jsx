@@ -9,30 +9,26 @@ export default class Chat extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            history:[],
-            i:3,
-            user:props.user,
+            history: [],
+            user: props.user,
             error: '',
             loop: true
         };
+        this.timeout;
         this.historyLoop();
     }
     
     historyLoop() {
         var _self = this;
-        var state = this.state;
-        
         (function history() {
             //this check is necessary so that the state does not get set on an unmounted component.
             if(_self.state.loop) {
                 axios.get('api/chat', {params: {limit:25}}).then(function (response) {
-                    state.history = response.data;
-                    _self.setState(state);
-                    setTimeout(history, 2000);
+                    _self.setState({history: response.data});
+                    _self.timeout = setTimeout(history, 2000);
                 })
                 .catch(function (error) {
-                    state.error = 'Network connection lost -- messages could not be retrieved';
-                    _self.setState(state);
+                    _self.setState({error: 'Network connection lost -- messages could not be retrieved'});
                 });
             }
             
@@ -40,36 +36,31 @@ export default class Chat extends React.Component {
     }
     
     componentWillUnmount() {
-        var state = this.state;
-        state.loop = null;
-        this.setState(state);
+        clearTimeout(this.timeout);
+        this.setState({loop: null});
     }
     
     submitMessage(msg) {
-        var _self = this;
-        var state = this.state;        
+        var history = this.state.history.slice();
         axios.post('api/chat', {user:this.state.user, msg: msg, timestamp:Date.now()}).then(function (response) {
-            state.history.unshift(response.data);
-            _self.setState(state);
-        })
+            history.unshift(response.data);
+            this.setState({history: history});
+        }.bind(this))
         .catch(function (error) {
-            state.error = 'Network connection lost -- message not sent';
-            _self.setState(state);
-        });
+            this.setState({error: 'Network connection lost -- message not sent'});
+        }.bind(this));
     }
     
     render() {
-        var _self = this;
-        var error = this.state.error != '' ? <Error errr={this.state.error} /> : '';
         return (
             <div className="chat">
                 <Logout onLogout={this.props.onLogout} />
                 <NewMessage user={this.state.user} msg="" onSubmit={(input) => this.submitMessage(input) } />
                 <div className="thread">
                     {this.state.history.map(function(msg, index) {
-                        return <Message msg={msg.msg} user={msg.user} key={msg.id} me={msg.user == _self.state.user ? true : false} timestamp={msg.timestamp} />
-                    })}
-                    {error}
+                        return <Message msg={msg.msg} user={msg.user} key={msg.id} me={msg.user == this.state.user ? true : false} timestamp={msg.timestamp} />
+                    }.bind(this))}
+                    {this.state.error ? <Error error={this.state.error} /> : null}
                 </div>
                 
             </div>

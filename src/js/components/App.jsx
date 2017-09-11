@@ -12,15 +12,11 @@ export default class App extends React.Component {
     }
     
     handleLogin(user) {
-        var state = this.state;
-        state.user = user;
-        this.setState(state);
+        this.setState({user: user});
     }
     
     handleLogout() {
-        var state = this.state;
-        state.user = null;
-        this.setState(state);
+        this.setState({user: null});
     }
     
     render() {
