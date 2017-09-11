@@ -17,7 +17,7 @@ export default class Logout extends React.Component {
     render() {
         return (
             <div className="logout">
-                <a href="#" onClick={this.handleClick}>Log out</a>
+                <a href="#" onClick={this.handleClick}>Log out and clear history</a>
             </div>
             
         );

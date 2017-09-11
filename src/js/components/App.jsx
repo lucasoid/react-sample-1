@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Chat from './Chat';
 import Login from './Login';
 
@@ -17,6 +18,7 @@ export default class App extends React.Component {
     
     handleLogout() {
         this.setState({user: null});
+        axios.post('api/clear');
     }
     
     render() {

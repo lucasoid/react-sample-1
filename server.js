@@ -47,3 +47,13 @@ app.post('/api/chat', function (req, res) {
         });
     }
 });
+
+// nuke the whole thing
+app.post('/api/clear', function (req, res) {
+    var db = new sqlite3.Database(DBNAME);
+    db.serialize(function () {
+        var stmt = db.prepare('DELETE FROM thread WHERE 1');
+        stmt.run();
+        res.send('History deleted.');
+    });
+});
