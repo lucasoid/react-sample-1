@@ -13,16 +13,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 var DBNAME = 'thread.sqlite';
-
+var port = process.env.PORT || 3000;
 function initDatabase() {
     var db = new sqlite3.Database(DBNAME);
     db.run('CREATE TABLE IF NOT EXISTS thread (msg TEXT, user TEXT, timestamp INTEGER)');
     db.close();
 }
 
-app.listen(3000, function () {
+app.listen(port, function () {
     initDatabase();
-    console.log('Listening on port 3000!');
 });
 
 app.get('/api/chat', function (req, res) {
